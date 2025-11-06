@@ -34,6 +34,15 @@ const config: HardhatUserConfig = {
       type: "edr-simulated",
       chainType: "op",
     },
+    bscTestnet: {
+      type: "http",
+      chainType: "l1",
+      url: "https://api.zan.top/bsc-testnet",
+      accounts: {
+        mnemonic: configVariable("MNEMONIC_WORDS"),
+        initialIndex: 0,
+      }
+    },
     sepolia: {
       type: "http",
       chainType: "l1",

@@ -7,7 +7,7 @@ import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {IERC20Metadata} from "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
 
 contract EasyFaucet is Initializable, OwnableUpgradeable {
-    address[] public tokens;
+    address[] private tokens;
 
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() {
@@ -33,15 +33,26 @@ contract EasyFaucet is Initializable, OwnableUpgradeable {
         IERC20(token).transfer(recipient, amount);
     }
 
-    // function balances() public view returns (uint256[] memory, uint8[] memory) {
-    //     uint256[] memory balance = new uint256[](tokens.length);
-    //     uint8[] memory decimals = new uint8[](tokens.length);
-    //
-    //     for (uint i; i < tokens.length; i++) {
-    //         balance[i] = IERC20(tokens[i]).balanceOf(address(this));
-    //         decimals[i] = IERC20Metadata(tokens[i]).decimals();
-    //     }
-    //
-    //     return (balance, decimals);
-    // }
+    function tokenInfos()
+        public
+        view
+        returns (
+            address[] memory,
+            string[] memory,
+            uint8[] memory,
+            uint256[] memory
+        )
+    {
+        string[] memory symbols = new string[](tokens.length);
+        uint8[] memory decimals = new uint8[](tokens.length);
+        uint256[] memory balance = new uint256[](tokens.length);
+
+        for (uint i; i < tokens.length; i++) {
+            symbols[i] = IERC20Metadata(tokens[i]).symbol();
+            decimals[i] = IERC20Metadata(tokens[i]).decimals();
+            balance[i] = IERC20(tokens[i]).balanceOf(address(this));
+        }
+
+        return (tokens, symbols, decimals, balance);
+    }
 }

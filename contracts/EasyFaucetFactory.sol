@@ -11,7 +11,7 @@ contract EasyFaucetFactory is
     OwnableUpgradeable,
     UUPSUpgradeable
 {
-    event NewFaucet(address faucet);
+    event NewFaucet(address owner, address faucet);
 
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() {
@@ -38,6 +38,6 @@ contract EasyFaucetFactory is
             tokens
         );
         BeaconProxy faucet = new BeaconProxy(beacon, data);
-        emit NewFaucet(address(faucet));
+        emit NewFaucet(initialOwner, address(faucet));
     }
 }
