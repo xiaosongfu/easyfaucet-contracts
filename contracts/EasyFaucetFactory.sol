@@ -11,7 +11,7 @@ contract EasyFaucetFactory is
     OwnableUpgradeable,
     UUPSUpgradeable
 {
-    event NewFaucet(address owner, address faucet);
+    event NewFaucet(address indexed owner, string name, address faucet);
 
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() {
@@ -30,14 +30,16 @@ contract EasyFaucetFactory is
     function newFaucet(
         address beacon,
         address initialOwner,
+        string memory name,
         address[] memory tokens
     ) public {
         bytes memory data = abi.encodeWithSignature(
-            "initialize(address,address[])",
+            "initialize(address,string,address[])",
             initialOwner,
+            name,
             tokens
         );
         BeaconProxy faucet = new BeaconProxy(beacon, data);
-        emit NewFaucet(initialOwner, address(faucet));
+        emit NewFaucet(initialOwner, name, address(faucet));
     }
 }

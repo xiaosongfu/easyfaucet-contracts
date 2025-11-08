@@ -7,6 +7,7 @@ import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {IERC20Metadata} from "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
 
 contract EasyFaucet is Initializable, OwnableUpgradeable {
+    string public name;
     address[] private tokens;
 
     /// @custom:oz-upgrades-unsafe-allow constructor
@@ -16,9 +17,12 @@ contract EasyFaucet is Initializable, OwnableUpgradeable {
 
     function initialize(
         address initialOwner,
+        string memory name_,
         address[] memory tokens_
     ) public initializer {
         __Ownable_init(initialOwner);
+
+        name = name_;
 
         for (uint i; i < tokens_.length; i++) {
             tokens.push(tokens_[i]);
