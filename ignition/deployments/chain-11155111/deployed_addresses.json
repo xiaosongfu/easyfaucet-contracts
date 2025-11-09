@@ -1,0 +1,6 @@
+{
+  "DeployEasyFaucet#EasyFaucet": "0x175C616D09775D07b8E8B382F757403aD5AA736d",
+  "DeployEasyFaucet#UpgradeableBeacon": "0x6D239B2127Fba527f4a280c1780aa74FC3Add7E0",
+  "DeployEasyFaucetFactory#EasyFaucetFactory": "0xcf471471C1eEaD02B4A7c76686BB99e54745D827",
+  "DeployEasyFaucetFactory#ERC1967Proxy": "0x8C7270053166EA8D8d7A5F7bee73c30b26B7049F"
+}
