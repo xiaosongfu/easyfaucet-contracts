@@ -11,11 +11,12 @@ export default buildModule("UpgradeEasyFaucetFactory", (m) => {
     const easyFaucetFactory = m.contract("EasyFaucetFactory");
 
     // step2: call upgradeToAndCall for doing upgrade
-    // function upgradeToAndCall(address newImplementation, bytes memory data)
-    // 20251108 使用这行代码升级会报错：`- HHE10708: Function 'upgradeToAndCall' not found in contract ERC1967Proxy`
+    // `function upgradeToAndCall(address newImplementation, bytes memory data)`
     // m.call(uups, "upgradeToAndCall", [easyFaucetFactory, "0x"], { from: initialOwner });
-    // 20251108 所以改用下面的方式
-    const uupsProxy = m.contractAt("EasyFaucetFactory", uups);
+    // @20251108:
+    //     使用上面这行代码升级会报错：`- HHE10708: Function 'upgradeToAndCall' not found in contract ERC1967Proxy`
+    //     所以改用下面的方式
+    const uupsProxy = m.contractAt("EasyFaucetFactory", uups, { id: "EasyFaucetFactory_At_ERC1967Proxy" });
     m.call(uupsProxy, "upgradeToAndCall", [easyFaucetFactory, "0x"], { from: initialOwner });
 
     return { easyFaucetFactory };

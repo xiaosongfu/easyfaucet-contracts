@@ -11,7 +11,7 @@ export default buildModule("UpgradeEasyFaucet", (m) => {
     const easyFaucet = m.contract("EasyFaucet");
 
     // step2: call upgradeTo for doing upgrade
-    // function upgradeTo(address newImplementation)
+    // `function upgradeTo(address newImplementation)`
     m.call(beacon, "upgradeTo", [easyFaucet], { from: initialOwner });
 
     return { easyFaucet }

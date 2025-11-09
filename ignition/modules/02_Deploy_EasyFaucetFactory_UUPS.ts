@@ -7,7 +7,8 @@ export default buildModule("DeployEasyFaucetFactory", (m) => {
     const easyFaucetFactory = m.contract("EasyFaucetFactory");
 
     // step2: deploy UUPS
-    // constructor(address implementation, bytes memory _data)
+    // `constructor(address implementation, bytes memory _data)`
+    // `function initialize(address initialOwner) public initializer`
     const uups = m.contract("ERC1967Proxy", [easyFaucetFactory, m.encodeFunctionCall(easyFaucetFactory, "initialize", [initialOwner])])
 
     return { easyFaucetFactory, uups };
